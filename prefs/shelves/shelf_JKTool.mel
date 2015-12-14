@@ -12,20 +12,21 @@ global proc shelf_JKTool () {
         -manage 1
         -visible 1
         -preventOverride 0
-        -annotation "import maya.cmds as mc\nfrom decimal import *\n \ngetcontext().prec = 5\n \nshp = mc.listRelatives(mc.ls(sl=1)[0],s=1)[0]\ncvs = mc.getAttr(shp+'.cv[*]')\ncvsSimple = []\nfor c in cvs:\n    cvsSimple.append([float(Decimal(\"%.3f\" % c[0])),float(Decimal(\"%.3f\" % c[1])),float(Decimal(\"%.3f\" % c[2]))])\n \n \nout = '\\n\\n### run python: #################\\n\\nimport maya.cmds as mc\\nmc.curve(p='  \nout += '[%s]' % ', '.join(map(str, cvsSimple))\nout += ',d='+str(mc.getAttr(shp+'.degree'))+')\\n\\n#################################'\n \nprint out" 
+        -annotation "Run JKTool" 
         -enableBackground 0
         -align "center" 
-        -label "import maya.cmds as mc\nfrom decimal import *\n \ngetcontext().prec..." 
+        -label "Run" 
         -labelOffset 0
         -font "plainLabelFont" 
+        -imageOverlayLabel "Run" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0 0 0 0.2 
-        -image "pythonFamily.png" 
-        -image1 "pythonFamily.png" 
+        -image "C:/Users/Leinsaviik/Documents/maya/2015-x64/prefs/icons/JKTool/JKTIcon01.png" 
+        -image1 "C:/Users/Leinsaviik/Documents/maya/2015-x64/prefs/icons/JKTool/JKTIcon01.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import maya.cmds as mc\nfrom decimal import *\n \ngetcontext().prec = 5\n \nshp = mc.listRelatives(mc.ls(sl=1)[0],s=1)[0]\ncvs = mc.getAttr(shp+'.cv[*]')\ncvsSimple = []\nfor c in cvs:\n    cvsSimple.append((float(Decimal(\"%.3f\" % c[0])),float(Decimal(\"%.3f\" % c[1])),float(Decimal(\"%.3f\" % c[2]))))\n \n \nout = '\\n\\n### run python: #################\\n\\nimport maya.cmds as mc\\nmc.curve(p='  \nout += '[%s]' % ', '.join(map(str, cvsSimple))\nout += ',d='+str(mc.getAttr(shp+'.degree'))+')\\n\\n#################################'\n \nprint out" 
+        -command "mc.JKTRun()" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
