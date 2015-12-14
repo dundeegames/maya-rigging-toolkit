@@ -2,13 +2,13 @@ import sys
 import maya.OpenMaya as OpenMaya
 import maya.OpenMayaMPx as OpenMayaMPx
 
-kPluginCmdName = "spHelloWorld"
+kPluginCmdName = "JKTRun"
 
 # Command
 class scriptedCommand(OpenMayaMPx.MPxCommand):
     def __init__(self):
         OpenMayaMPx.MPxCommand.__init__(self)
-        
+
     # Invoked when the command is run.
     def doIt(self,argList):
         print "Hello World!"
@@ -16,7 +16,7 @@ class scriptedCommand(OpenMayaMPx.MPxCommand):
 # Creator
 def cmdCreator():
     return OpenMayaMPx.asMPxPtr( scriptedCommand() )
-    
+
 # Initialize the script plug-in
 def initializePlugin(mobject):
     mplugin = OpenMayaMPx.MFnPlugin(mobject, "Jiri Klic", "1.0")
@@ -25,6 +25,7 @@ def initializePlugin(mobject):
     except:
         sys.stderr.write( "Failed to register command: %s\n" % kPluginCmdName )
         raise
+
 
 # Uninitialize the script plug-in
 def uninitializePlugin(mobject):
