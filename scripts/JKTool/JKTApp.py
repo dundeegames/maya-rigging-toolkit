@@ -73,15 +73,23 @@ def createCtrlShape():
 		mc.parent(offset_group, world=True)
 
 
-def printNewMenuItem():
-	temp_CLR = cmds.optionMenu(colour_menu, query = True, value = True)
-	temp_SHP = cmds.optionMenu(shape_menu, query = True, value = True)
-	print "Colour is: %s" % temp_CLR
-	print "Shape is: %s" % temp_SHP
+# def printNewMenuItem(*args):
+	# temp_CLR = cmds.optionMenu(colour_menu, query = True, value = True)
+	# temp_SHP = cmds.optionMenu(shape_menu, query = True, value = True)
+	# print "Colour is: %s" % temp_CLR
+	# print "Shape is: %s" % temp_SHP
 		
 
 		
 def RunApp():
+
+
+	def printNewMenuItem(*args):
+		temp_CLR = mc.optionMenu(colour_menu, query = True, value = True)
+		temp_SHP = mc.optionMenu(shape_menu, query = True, value = True)
+		print "Colour is: %s" % temp_CLR
+		print "Shape is: %s" % temp_SHP
+
 
 	#check if it already exists. If it does, delete it.
 	wnd_name = "myWindow"
@@ -124,7 +132,7 @@ def RunApp():
 	mc.menuItem( parent=shape_menu, label="Right Hand" )
 
 	mc.rowLayout(numberOfColumns=3)
-	mc.button(label="Create", height=30, command="printNewMenuItem()")
+	mc.button(label="Create", height=30, command=printNewMenuItem)
 	mc.button(label="Undo", height=30, command="mc.undo()")
 
 
