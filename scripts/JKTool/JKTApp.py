@@ -32,24 +32,39 @@ def RunApp():
 			return
 		else:
 			joint = selected[0]
-
-		#print joint
+			
+		# Find the name partition
 		name_part = joint.partition("_")
-		#print name_part
-		#print name_part[2]
+		
 		if name_part[0] == "jnt":
 			ctrl_name = "ctrl_" + name_part[2]
 			grp_name = "grp_" + name_part[2]
 			
-			# create full circle at origin on the y-z plane
+			#query selected colour_menu
+			temp_CLR = mc.optionMenu(colour_menu, query = True, value = True)
+			
+			if(temp_CLR == "Yellow"):
+				shapeColour = 17
+			elif(temp_CLR == "Red"):
+				shapeColour = 13
+			elif(temp_CLR == "Blue"):
+				shapeColour = 6
+			else:
+				shapeColour = 0
+			
+			#query selected shape_menu
+			temp_SHP = mc.optionMenu(shape_menu, query = True, value = True)
+			
+			# create shape at origin on the y-z plane
 			# to follow x as pripary local rot-axis
+			
 			#ctrl_shape = mc.circle( name=ctrl_name, nr=(1, 0, 0), c=(0, 0, 0), r=7.0 )
 			#ctrl_shape = mc.curve(p=[(-14.274, -9.897, -10.278), (14.274, -9.897, -10.278), (14.274, -12.373, 12.695), (-14.274, -12.373, 12.695), (-13.439, 10.857, 5.431), (13.439, 10.857, 5.431), (14.274, -12.373, 12.695), (13.439, 10.857, 5.431), (14.894, 12.373, -12.695), (14.274, -9.897, -10.278), (14.894, 12.373, -12.695), (-14.894, 12.373, -12.695), (-14.274, -9.897, -10.278), (-14.894, 12.373, -12.695), (-13.439, 10.857, 5.431), (-14.274, -12.373, 12.695), (-14.274, -9.897, -10.278)],d=1)
 			ctrl_shape = mc.curve(name=ctrl_name, p=[(-6.48, -11.196, -14.382), (-6.569, -11.395, 14.165), (-14.765, 10.208, 14.29), (-14.677, 10.407, -14.257), (9.632, 9.237, -13.355), (9.549, 9.05, 13.523), (-14.765, 10.208, 14.29), (9.549, 9.05, 13.523), (15.588, -8.116, 14.877), (-6.569, -11.395, 14.165), (15.588, -8.116, 14.877), (15.68, -7.908, -14.91), (-6.48, -11.196, -14.382), (15.68, -7.908, -14.91), (9.632, 9.237, -13.355), (-14.677, 10.407, -14.257), (-6.48, -11.196, -14.382)],d=1)
 
 
 			mc.setAttr(ctrl_shape + '.overrideEnabled', 1)
-			mc.setAttr(ctrl_shape + '.overrideColor', 17)	# color 17 is yellow, 6 - blue, 13 - red
+			mc.setAttr(ctrl_shape + '.overrideColor', shapeColour)	# color 17 is yellow, 6 - blue, 13 - red
 			
 			#The enums are sorted as the colors in the attribute editor, so 0 is grey, 1 is black, 2 is dark grey, 3 is light grey, 4 is magenta etc. etc. 
 			#mc.setAttr(ctrl_name + ".overrideColor",1);
@@ -97,13 +112,14 @@ def RunApp():
 
 
 	mc.columnLayout(adjustableColumn=True)
-	colour_menu = mc.optionMenu( label='Colour' )
-	mc.menuItem( parent=colour_menu, label='Yellow' )
-	mc.menuItem( parent=colour_menu, label='Red' )
-	mc.menuItem( parent=colour_menu, label='Blue' )
+	colour_menu = mc.optionMenu( label="Colour" )
+	mc.menuItem( parent=colour_menu, label="Yellow" )
+	mc.menuItem( parent=colour_menu, label="Red" )
+	mc.menuItem( parent=colour_menu, label="Blue" )
 
-	shape_menu = mc.optionMenu( label='Shape' )
+	shape_menu = mc.optionMenu( label="Shape" )
 	mc.menuItem( parent=shape_menu, label="Base" )
+	mc.menuItem( parent=shape_menu, label="Circle" )
 	mc.menuItem( parent=shape_menu, label="Cube" )
 	mc.menuItem( parent=shape_menu, label="Foot" )
 	mc.menuItem( parent=shape_menu, label="Left Eye" )
