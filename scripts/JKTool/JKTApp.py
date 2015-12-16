@@ -1,5 +1,5 @@
 """Main Window Module
-@file JKTWindow.py
+@file JKTApp.py
 @details    creates Window with UI for my tool
 
 @author     Jiri Klic
@@ -73,67 +73,59 @@ def createCtrlShape():
 		mc.parent(offset_group, world=True)
 
 
-
-
-
-
-
-
 def printNewMenuItem():
-		temp_CLR = cmds.optionMenu(colour_menu, query = True, value = True)
-		temp_SHP = cmds.optionMenu(shape_menu, query = True, value = True)
-		print "Colour is: %s" % temp_CLR
-		print "Shape is: %s" % temp_SHP
+	temp_CLR = cmds.optionMenu(colour_menu, query = True, value = True)
+	temp_SHP = cmds.optionMenu(shape_menu, query = True, value = True)
+	print "Colour is: %s" % temp_CLR
+	print "Shape is: %s" % temp_SHP
 		
 
-#check if it already exists. If it does, delete it.
-wnd_name = "myWindow"
-if mc.window(wnd_name, exists=True):
-	mc.deleteUI(wnd_name)
+		
+def RunApp():
 
-#Maya will also save the window size for the tool to the preferences. If we don’t want this we need to remove them
-if mc.windowPref(wnd_name, exists=True):
-	mc.windowPref(wnd_name, remove=True)
+	#check if it already exists. If it does, delete it.
+	wnd_name = "myWindow"
+	if mc.window(wnd_name, exists=True):
+		mc.deleteUI(wnd_name)
 
-#create the window, include the name of the window
-window = mc.window(wnd_name, title="JKTool", widthHeight=[180, 90])
+	#Maya will also save the window size for the tool to the preferences.
+	#If we don't want this we need to remove them
+	#if mc.windowPref(wnd_name, exists=True):
+		# mc.windowPref(wnd_name, remove=True)
 
-
-mc.columnLayout()
-colour_menu = mc.optionMenu( label='Colour' )
-mc.menuItem( parent=colour_menu, label='Yellow' )
-mc.menuItem( parent=colour_menu, label='Red' )
-mc.menuItem( parent=colour_menu, label='Blue' )
-
-shape_menu = mc.optionMenu( label='Shape' )
-mc.menuItem( parent=shape_menu, label="Base" )
-mc.menuItem( parent=shape_menu, label="Cube" )
-mc.menuItem( parent=shape_menu, label="Foot" )
-mc.menuItem( parent=shape_menu, label="Left Eye" )
-mc.menuItem( parent=shape_menu, label="Right Eye" )
-mc.menuItem( parent=shape_menu, label="Sight" )
-mc.menuItem( parent=shape_menu, label="4-Way Flat Arrow" )
-mc.menuItem( parent=shape_menu, label="4-Way Bend Arrow" )
-mc.menuItem( parent=shape_menu, label="Chest" )
-mc.menuItem( parent=shape_menu, label="Hips" )
-mc.menuItem( parent=shape_menu, label="Neck" )
-mc.menuItem( parent=shape_menu, label="Chin" )
-mc.menuItem( parent=shape_menu, label="Sphere" )
-mc.menuItem( parent=shape_menu, label="Cross" )
-mc.menuItem( parent=shape_menu, label="Cog Wheel" )
-mc.menuItem( parent=shape_menu, label="Square" )
-mc.menuItem( parent=shape_menu, label="Triangle" )
-mc.menuItem( parent=shape_menu, label="Right Hand" )
-
-mc.rowLayout(numberOfColumns=3)
-mc.button(label="Create", height=30, command="printNewMenuItem()")
-mc.button(label="Undo", height=30, command="mc.undo()")
+	#create the window, include the name of the window
+	window = mc.window(wnd_name, title="JKTool", widthHeight=[180, 90])
 
 
-mc.showWindow( window )
+	mc.columnLayout()
+	colour_menu = mc.optionMenu( label='Colour' )
+	mc.menuItem( parent=colour_menu, label='Yellow' )
+	mc.menuItem( parent=colour_menu, label='Red' )
+	mc.menuItem( parent=colour_menu, label='Blue' )
+
+	shape_menu = mc.optionMenu( label='Shape' )
+	mc.menuItem( parent=shape_menu, label="Base" )
+	mc.menuItem( parent=shape_menu, label="Cube" )
+	mc.menuItem( parent=shape_menu, label="Foot" )
+	mc.menuItem( parent=shape_menu, label="Left Eye" )
+	mc.menuItem( parent=shape_menu, label="Right Eye" )
+	mc.menuItem( parent=shape_menu, label="Sight" )
+	mc.menuItem( parent=shape_menu, label="4-Way Flat Arrow" )
+	mc.menuItem( parent=shape_menu, label="4-Way Bend Arrow" )
+	mc.menuItem( parent=shape_menu, label="Chest" )
+	mc.menuItem( parent=shape_menu, label="Hips" )
+	mc.menuItem( parent=shape_menu, label="Neck" )
+	mc.menuItem( parent=shape_menu, label="Chin" )
+	mc.menuItem( parent=shape_menu, label="Sphere" )
+	mc.menuItem( parent=shape_menu, label="Cross" )
+	mc.menuItem( parent=shape_menu, label="Cog Wheel" )
+	mc.menuItem( parent=shape_menu, label="Square" )
+	mc.menuItem( parent=shape_menu, label="Triangle" )
+	mc.menuItem( parent=shape_menu, label="Right Hand" )
+
+	mc.rowLayout(numberOfColumns=3)
+	mc.button(label="Create", height=30, command="printNewMenuItem()")
+	mc.button(label="Undo", height=30, command="mc.undo()")
 
 
-
-
-
-
+	mc.showWindow( window )

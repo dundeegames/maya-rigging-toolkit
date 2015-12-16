@@ -2,7 +2,7 @@ import sys
 import maya.OpenMaya as OpenMaya
 import maya.OpenMayaMPx as OpenMayaMPx
 
-import JKTool.JKTCurves as jktc
+import JKTool.JKTApp
 
 kPluginCmdName = "JKTRun"
 
@@ -14,7 +14,7 @@ class scriptedCommand(OpenMayaMPx.MPxCommand):
     # Invoked when the command is run.
     def doIt(self,argList):
         #print "Hello World!"
-		jktc.baseShape()
+		JKTool.JKTApp.RunApp()
 
 # Creator
 def cmdCreator():
