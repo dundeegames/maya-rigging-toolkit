@@ -98,14 +98,14 @@ def RunApp():
 
 	#Maya will also save the window size for the tool to the preferences.
 	#If we don't want this we need to remove them
-	#if mc.windowPref(wnd_name, exists=True):
-		# mc.windowPref(wnd_name, remove=True)
+	if mc.windowPref(wnd_name, exists=True):
+		mc.windowPref(wnd_name, remove=True)
 
 	#create the window, include the name of the window
-	window = mc.window(wnd_name, title="JKTool", widthHeight=[180, 90])
+	window = mc.window(wnd_name, title="JKTool", widthHeight=[162, 90])
 
 
-	mc.columnLayout()
+	mc.columnLayout(adjustableColumn=True)
 	colour_menu = mc.optionMenu( label='Colour' )
 	mc.menuItem( parent=colour_menu, label='Yellow' )
 	mc.menuItem( parent=colour_menu, label='Red' )
@@ -131,7 +131,7 @@ def RunApp():
 	mc.menuItem( parent=shape_menu, label="Triangle" )
 	mc.menuItem( parent=shape_menu, label="Right Hand" )
 
-	mc.rowLayout(numberOfColumns=3)
+	mc.rowLayout(numberOfColumns=3, adjustableColumn=True, width=160)
 	mc.button(label="Create", height=30, command=printNewMenuItem)
 	mc.button(label="Undo", height=30, command="mc.undo()")
 
