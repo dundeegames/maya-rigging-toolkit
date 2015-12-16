@@ -20,68 +20,59 @@
 import maya.cmds as mc
 import JKTool.JKTCurves as jktc
 
-def createCtrlShape():
-	selected = mc.ls(selection=True)
 
-	if len(selected) != 2:
-		# "question", "information", "warning" and "critical"
-		mc.confirmDialog( title='Error', message='Select 2 objects: Control Shape and Joint', button=['OK'], icon="warning" )
-	elif not( mc.objectType( selected[0], isType='joint' ) and  mc.objectType( selected[1], isType='transform' ) ):
-		mc.confirmDialog( title='Error', message='Select first Control Shape and then one Joint', button=['OK'], icon="warning" )		
-	else:
-		joint = selected[0]
-		ctrl_shape = selected[1]
-		
-
-	#print joint
-	name_part = joint.partition("_")
-	#print name_part
-	#print name_part[2]
-	if name_part[0] == "jnt":
-		ctrl_name = "ctrl_" + name_part[2]
-		grp_name = "grp_" + name_part[2]
-		
-		# create full circle at origin on the y-z plane
-		# to follow x as pripary local rot-axis
-		#ctrl_shape = mc.circle( name=ctrl_name, nr=(1, 0, 0), c=(0, 0, 0), r=7.0 )
-		#ctrl_shape = mc.curve(p=[(-14.274, -9.897, -10.278), (14.274, -9.897, -10.278), (14.274, -12.373, 12.695), (-14.274, -12.373, 12.695), (-13.439, 10.857, 5.431), (13.439, 10.857, 5.431), (14.274, -12.373, 12.695), (13.439, 10.857, 5.431), (14.894, 12.373, -12.695), (14.274, -9.897, -10.278), (14.894, 12.373, -12.695), (-14.894, 12.373, -12.695), (-14.274, -9.897, -10.278), (-14.894, 12.373, -12.695), (-13.439, 10.857, 5.431), (-14.274, -12.373, 12.695), (-14.274, -9.897, -10.278)],d=1)
-		ctrl_shape = mc.curve(name=ctrl_name, p=[(-6.48, -11.196, -14.382), (-6.569, -11.395, 14.165), (-14.765, 10.208, 14.29), (-14.677, 10.407, -14.257), (9.632, 9.237, -13.355), (9.549, 9.05, 13.523), (-14.765, 10.208, 14.29), (9.549, 9.05, 13.523), (15.588, -8.116, 14.877), (-6.569, -11.395, 14.165), (15.588, -8.116, 14.877), (15.68, -7.908, -14.91), (-6.48, -11.196, -14.382), (15.68, -7.908, -14.91), (9.632, 9.237, -13.355), (-14.677, 10.407, -14.257), (-6.48, -11.196, -14.382)],d=1)
-
-
-		mc.setAttr(ctrl_shape + '.overrideEnabled', 1)
-		mc.setAttr(ctrl_shape + '.overrideColor', 17)	# color 17 is yellow, 6 - blue, 13 - red
-		
-		#The enums are sorted as the colors in the attribute editor, so 0 is grey, 1 is black, 2 is dark grey, 3 is light grey, 4 is magenta etc. etc. 
-		#mc.setAttr(ctrl_name + ".overrideColor",1);
-		
-		
-		#group the ctrl_shape
-		offset_group = mc.group(ctrl_shape, name=grp_name)
-		
-		#parent offset_group to joint
-		mc.parent(offset_group, joint)
-		
-		mc.setAttr(grp_name + ".translateX", 0)
-		mc.setAttr(grp_name + ".translateY", 0)
-		mc.setAttr(grp_name + ".translateZ", 0)
-		
-		mc.setAttr(grp_name + ".rotateX", 0)
-		mc.setAttr(grp_name + ".rotateY", 0)
-		mc.setAttr(grp_name + ".rotateZ", 0)
-		
-		#unparent offset_group from joint
-		mc.parent(offset_group, world=True)
-
-
-# def printNewMenuItem(*args):
-	# temp_CLR = cmds.optionMenu(colour_menu, query = True, value = True)
-	# temp_SHP = cmds.optionMenu(shape_menu, query = True, value = True)
-	# print "Colour is: %s" % temp_CLR
-	# print "Shape is: %s" % temp_SHP
-		
-
-		
 def RunApp():
+
+	def createCtrlShape(*args):
+		selected = mc.ls(selection=True)
+
+		if (len(selected) != 1) or not( mc.objectType( selected[0], isType="joint" )):
+			# "question", "information", "warning" and "critical"
+			mc.confirmDialog( title='Error', message="Select one Joint", button=['OK'], icon="warning" )
+			return
+		else:
+			joint = selected[0]
+
+		#print joint
+		name_part = joint.partition("_")
+		#print name_part
+		#print name_part[2]
+		if name_part[0] == "jnt":
+			ctrl_name = "ctrl_" + name_part[2]
+			grp_name = "grp_" + name_part[2]
+			
+			# create full circle at origin on the y-z plane
+			# to follow x as pripary local rot-axis
+			#ctrl_shape = mc.circle( name=ctrl_name, nr=(1, 0, 0), c=(0, 0, 0), r=7.0 )
+			#ctrl_shape = mc.curve(p=[(-14.274, -9.897, -10.278), (14.274, -9.897, -10.278), (14.274, -12.373, 12.695), (-14.274, -12.373, 12.695), (-13.439, 10.857, 5.431), (13.439, 10.857, 5.431), (14.274, -12.373, 12.695), (13.439, 10.857, 5.431), (14.894, 12.373, -12.695), (14.274, -9.897, -10.278), (14.894, 12.373, -12.695), (-14.894, 12.373, -12.695), (-14.274, -9.897, -10.278), (-14.894, 12.373, -12.695), (-13.439, 10.857, 5.431), (-14.274, -12.373, 12.695), (-14.274, -9.897, -10.278)],d=1)
+			ctrl_shape = mc.curve(name=ctrl_name, p=[(-6.48, -11.196, -14.382), (-6.569, -11.395, 14.165), (-14.765, 10.208, 14.29), (-14.677, 10.407, -14.257), (9.632, 9.237, -13.355), (9.549, 9.05, 13.523), (-14.765, 10.208, 14.29), (9.549, 9.05, 13.523), (15.588, -8.116, 14.877), (-6.569, -11.395, 14.165), (15.588, -8.116, 14.877), (15.68, -7.908, -14.91), (-6.48, -11.196, -14.382), (15.68, -7.908, -14.91), (9.632, 9.237, -13.355), (-14.677, 10.407, -14.257), (-6.48, -11.196, -14.382)],d=1)
+
+
+			mc.setAttr(ctrl_shape + '.overrideEnabled', 1)
+			mc.setAttr(ctrl_shape + '.overrideColor', 17)	# color 17 is yellow, 6 - blue, 13 - red
+			
+			#The enums are sorted as the colors in the attribute editor, so 0 is grey, 1 is black, 2 is dark grey, 3 is light grey, 4 is magenta etc. etc. 
+			#mc.setAttr(ctrl_name + ".overrideColor",1);
+			
+			
+			#group the ctrl_shape
+			offset_group = mc.group(ctrl_shape, name=grp_name)
+			
+			#parent offset_group to joint
+			mc.parent(offset_group, joint)
+			
+			mc.setAttr(grp_name + ".translateX", 0)
+			mc.setAttr(grp_name + ".translateY", 0)
+			mc.setAttr(grp_name + ".translateZ", 0)
+			
+			mc.setAttr(grp_name + ".rotateX", 0)
+			mc.setAttr(grp_name + ".rotateY", 0)
+			mc.setAttr(grp_name + ".rotateZ", 0)
+			
+			#unparent offset_group from joint
+			mc.parent(offset_group, world=True)
+
+
 
 
 	def printNewMenuItem(*args):
@@ -132,7 +123,7 @@ def RunApp():
 	mc.menuItem( parent=shape_menu, label="Right Hand" )
 
 	mc.rowLayout(numberOfColumns=3, adjustableColumn=True, width=160)
-	mc.button(label="Create", height=30, command=printNewMenuItem)
+	mc.button(label="Create", height=30, command=createCtrlShape)
 	mc.button(label="Undo", height=30, command="mc.undo()")
 
 
