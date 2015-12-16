@@ -40,6 +40,7 @@ def RunApp():
 			ctrl_name = "ctrl_" + name_part[2]
 			grp_name = "grp_" + name_part[2]
 			
+			
 			#query selected colour_menu
 			temp_CLR = mc.optionMenu(colour_menu, query = True, value = True)
 			
@@ -50,24 +51,62 @@ def RunApp():
 			elif(temp_CLR == "Blue"):
 				shapeColour = 6
 			else:
-				shapeColour = 0
+				mc.confirmDialog( title='Error', message="Not such Colour option!", button=['OK'], icon="warning" )
+				return
 			
 			#query selected shape_menu
 			temp_SHP = mc.optionMenu(shape_menu, query = True, value = True)
 			
+			if(temp_SHP == "Base"):
+				ctrl_shape = jktc.baseShape(ctrl_name)
+			# elif(temp_SHP == "Circle"):
+				# ctrl_shape = mc.circle( name=ctrl_name, nr=(1, 0, 0), c=(0, 0, 0), r=7.0 )
+			elif(temp_SHP == "Cube"):
+				ctrl_shape = jktc.cubeShape(ctrl_name)
+			elif(temp_SHP == "Foot"):
+				ctrl_shape = jktc.footShape(ctrl_name)
+			elif(temp_SHP == "Left Eye"):
+				ctrl_shape = jktc.eyeShapeL(ctrl_name)
+			elif(temp_SHP == "Right Eye"):
+				ctrl_shape = jktc.eyeShapeR(ctrl_name)
+			elif(temp_SHP == "Sight"):
+				ctrl_shape = jktc.sightShape(ctrl_name)
+			elif(temp_SHP == "4-Way Flat Arrow"):
+				ctrl_shape = jktc.flatArrow4(ctrl_name)
+			elif(temp_SHP == "4-Way Bend Arrow"):
+				ctrl_shape = jktc.bendArrow4(ctrl_name)
+			elif(temp_SHP == "Chest"):
+				ctrl_shape = jktc.chestShape(ctrl_name)				
+			elif(temp_SHP == "Hips"):
+				ctrl_shape = jktc.hipShape(ctrl_name)
+			elif(temp_SHP == "Neck"):
+				ctrl_shape = jktc.neckShape(ctrl_name)
+			elif(temp_SHP == "Chin"):
+				ctrl_shape = jktc.chinShape(ctrl_name)
+			elif(temp_SHP == "Sphere"):
+				ctrl_shape = jktc.sphereShape(ctrl_name)
+			elif(temp_SHP == "Cross"):
+				ctrl_shape = jktc.crossShape(ctrl_name)
+			elif(temp_SHP == "Cog Wheel"):
+				ctrl_shape = jktc.cogWheelShape(ctrl_name)
+			elif(temp_SHP == "Square"):
+				ctrl_shape = jktc.squareShape(ctrl_name)
+			elif(temp_SHP == "Triangle"):
+				ctrl_shape = jktc.triangleShape(ctrl_name)
+			elif(temp_SHP == "Right Hand"):
+				ctrl_shape = jktc.handShape(ctrl_name)
+			else:
+				mc.confirmDialog( title='Error', message="Not such Shape option!", button=['OK'], icon="warning" )
+				return
+			
 			# create shape at origin on the y-z plane
 			# to follow x as pripary local rot-axis
-			
-			#ctrl_shape = mc.circle( name=ctrl_name, nr=(1, 0, 0), c=(0, 0, 0), r=7.0 )
-			#ctrl_shape = mc.curve(p=[(-14.274, -9.897, -10.278), (14.274, -9.897, -10.278), (14.274, -12.373, 12.695), (-14.274, -12.373, 12.695), (-13.439, 10.857, 5.431), (13.439, 10.857, 5.431), (14.274, -12.373, 12.695), (13.439, 10.857, 5.431), (14.894, 12.373, -12.695), (14.274, -9.897, -10.278), (14.894, 12.373, -12.695), (-14.894, 12.373, -12.695), (-14.274, -9.897, -10.278), (-14.894, 12.373, -12.695), (-13.439, 10.857, 5.431), (-14.274, -12.373, 12.695), (-14.274, -9.897, -10.278)],d=1)
-			ctrl_shape = mc.curve(name=ctrl_name, p=[(-6.48, -11.196, -14.382), (-6.569, -11.395, 14.165), (-14.765, 10.208, 14.29), (-14.677, 10.407, -14.257), (9.632, 9.237, -13.355), (9.549, 9.05, 13.523), (-14.765, 10.208, 14.29), (9.549, 9.05, 13.523), (15.588, -8.116, 14.877), (-6.569, -11.395, 14.165), (15.588, -8.116, 14.877), (15.68, -7.908, -14.91), (-6.48, -11.196, -14.382), (15.68, -7.908, -14.91), (9.632, 9.237, -13.355), (-14.677, 10.407, -14.257), (-6.48, -11.196, -14.382)],d=1)
+			#ctrl_shape = mc.curve(name=ctrl_name, p=[(-6.48, -11.196, -14.382), (-6.569, -11.395, 14.165), (-14.765, 10.208, 14.29), (-14.677, 10.407, -14.257), (9.632, 9.237, -13.355), (9.549, 9.05, 13.523), (-14.765, 10.208, 14.29), (9.549, 9.05, 13.523), (15.588, -8.116, 14.877), (-6.569, -11.395, 14.165), (15.588, -8.116, 14.877), (15.68, -7.908, -14.91), (-6.48, -11.196, -14.382), (15.68, -7.908, -14.91), (9.632, 9.237, -13.355), (-14.677, 10.407, -14.257), (-6.48, -11.196, -14.382)],d=1)
 
 
 			mc.setAttr(ctrl_shape + '.overrideEnabled', 1)
 			mc.setAttr(ctrl_shape + '.overrideColor', shapeColour)	# color 17 is yellow, 6 - blue, 13 - red
-			
 			#The enums are sorted as the colors in the attribute editor, so 0 is grey, 1 is black, 2 is dark grey, 3 is light grey, 4 is magenta etc. etc. 
-			#mc.setAttr(ctrl_name + ".overrideColor",1);
 			
 			
 			#group the ctrl_shape
@@ -87,14 +126,7 @@ def RunApp():
 			#unparent offset_group from joint
 			mc.parent(offset_group, world=True)
 
-
-
-
-	def printNewMenuItem(*args):
-		temp_CLR = mc.optionMenu(colour_menu, query = True, value = True)
-		temp_SHP = mc.optionMenu(shape_menu, query = True, value = True)
-		print "Colour is: %s" % temp_CLR
-		print "Shape is: %s" % temp_SHP
+			
 
 
 	#check if it already exists. If it does, delete it.
@@ -119,7 +151,7 @@ def RunApp():
 
 	shape_menu = mc.optionMenu( label="Shape" )
 	mc.menuItem( parent=shape_menu, label="Base" )
-	mc.menuItem( parent=shape_menu, label="Circle" )
+	# mc.menuItem( parent=shape_menu, label="Circle" )
 	mc.menuItem( parent=shape_menu, label="Cube" )
 	mc.menuItem( parent=shape_menu, label="Foot" )
 	mc.menuItem( parent=shape_menu, label="Left Eye" )
