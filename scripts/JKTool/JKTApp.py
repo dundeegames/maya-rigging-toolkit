@@ -82,7 +82,9 @@ def RunApp():
 			elif(temp_SHP == "Hips"):
 				ctrl_shape = jktc.hipShape(ctrl_name)
 			elif(temp_SHP == "Neck"):
-				ctrl_shape = jktc.neckShape(ctrl_name)
+				ctrl_shape = jktc.hipShape(ctrl_name)
+			elif(temp_SHP == "Head"):
+				ctrl_shape = jktc.headShape(ctrl_name)
 			elif(temp_SHP == "Chin"):
 				ctrl_shape = jktc.chinShape(ctrl_name)
 			elif(temp_SHP == "Sphere"):
@@ -165,6 +167,7 @@ def RunApp():
 	mc.menuItem( parent=shape_menu, label="Chest" )
 	mc.menuItem( parent=shape_menu, label="Hips" )
 	mc.menuItem( parent=shape_menu, label="Neck" )
+	mc.menuItem( parent=shape_menu, label="Head" )
 	mc.menuItem( parent=shape_menu, label="Chin" )
 	mc.menuItem( parent=shape_menu, label="Sphere" )
 	mc.menuItem( parent=shape_menu, label="Cross" )
