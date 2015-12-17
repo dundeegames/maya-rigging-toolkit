@@ -59,12 +59,14 @@ def RunApp():
 			
 			if(temp_SHP == "Base"):
 				ctrl_shape = jktc.baseShape(ctrl_name)
-			# elif(temp_SHP == "Circle"):
-				# ctrl_shape = mc.circle( name=ctrl_name, nr=(1, 0, 0), c=(0, 0, 0), r=7.0 )
+			elif(temp_SHP == "Circle"):
+				ctrl_shape = jktc.circleShape(ctrl_name)
 			elif(temp_SHP == "Cube"):
 				ctrl_shape = jktc.cubeShape(ctrl_name)
-			elif(temp_SHP == "Foot"):
-				ctrl_shape = jktc.footShape(ctrl_name)
+			elif(temp_SHP == "Left Foot"):
+				ctrl_shape = jktc.footShapeL(ctrl_name)
+			elif(temp_SHP == "Right Foot"):
+				ctrl_shape = jktc.footShapeR(ctrl_name)
 			elif(temp_SHP == "Left Eye"):
 				ctrl_shape = jktc.eyeShapeL(ctrl_name)
 			elif(temp_SHP == "Right Eye"):
@@ -151,9 +153,10 @@ def RunApp():
 
 	shape_menu = mc.optionMenu( label="Shape" )
 	mc.menuItem( parent=shape_menu, label="Base" )
-	# mc.menuItem( parent=shape_menu, label="Circle" )
+	mc.menuItem( parent=shape_menu, label="Circle" )
 	mc.menuItem( parent=shape_menu, label="Cube" )
-	mc.menuItem( parent=shape_menu, label="Foot" )
+	mc.menuItem( parent=shape_menu, label="Left Foot" )
+	mc.menuItem( parent=shape_menu, label="Right Foot" )
 	mc.menuItem( parent=shape_menu, label="Left Eye" )
 	mc.menuItem( parent=shape_menu, label="Right Eye" )
 	mc.menuItem( parent=shape_menu, label="Sight" )
