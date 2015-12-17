@@ -93,6 +93,8 @@ def RunApp():
 				ctrl_shape = jktc.crossShape(ctrl_name)
 			elif(temp_SHP == "Cog Wheel"):
 				ctrl_shape = jktc.cogWheelShape(ctrl_name)
+			elif(temp_SHP == "Diamond"):
+				ctrl_shape = jktc.diamondShape(ctrl_name)
 			elif(temp_SHP == "Square"):
 				ctrl_shape = jktc.squareShape(ctrl_name)
 			elif(temp_SHP == "Triangle"):
@@ -172,6 +174,7 @@ def RunApp():
 	mc.menuItem( parent=shape_menu, label="Sphere" )
 	mc.menuItem( parent=shape_menu, label="Cross" )
 	mc.menuItem( parent=shape_menu, label="Cog Wheel" )
+	mc.menuItem( parent=shape_menu, label="Diamond" )
 	mc.menuItem( parent=shape_menu, label="Square" )
 	mc.menuItem( parent=shape_menu, label="Triangle" )
 	mc.menuItem( parent=shape_menu, label="Right Hand" )
